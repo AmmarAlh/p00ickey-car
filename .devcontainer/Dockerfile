@@ -33,7 +33,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     ros-${ROS_DISTRO}-ros-gz \
     && rm -rf /var/lib/apt/lists/*
 
-# COpy and set entrypoint script
+# Copy and set entrypoint script
 COPY ros_entrypoint.sh /ros_entrypoint.sh
 RUN chmod +x /ros_entrypoint.sh
 ENTRYPOINT ["/ros_entrypoint.sh"]

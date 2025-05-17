@@ -39,7 +39,6 @@ ros\_ws/
 ├── scripts/               # App logic/scripts
 └── config/                # App-specific parameters
 
-````
 
 ---
 
