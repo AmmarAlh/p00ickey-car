@@ -1,0 +1,35 @@
+{
+  "name": "Pickey-Car ROS2 Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "containerEnv": {
+    "DISPLAY": "${env:DISPLAY}",
+    "NVIDIA_DRIVER_CAPABILITIES": "all",
+    "NVIDIA_VISIBLE_DEVICES": "all"
+  },
+  "workspaceFolder": "/root/p00ickey-car",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/root/p00ickey-car,type=bind,consistency=cached",
+  "customizations": {
+    "vscode": {
+        "extensions": [
+          "ms-iot.vscode-ros",
+          "ms-python.python",
+          "ms-vscode.cpptools",
+          "ms-vscode.cmake-tools",
+          "ms-python.vscode-pylance",
+          "foxundermoon.shell-format",
+          "tkrkt.ros-snippets",
+          "bbenoist.nunjucks",
+          "eamodio.gitlens",
+          "streetsidesoftware.code-spell-checker",
+          "redhat.vscode-yaml",
+          "oderwat.indent-rainbow",
+          "ms-azuretools.vscode-docker",
+          "GitHub.copilot",
+          "GitHub.copilot-chat"
+        ]
+
+    }
+  }
+}
