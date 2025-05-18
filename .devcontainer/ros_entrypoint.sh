@@ -11,6 +11,7 @@ if ! grep -q "source /opt/ros/jazzy/setup.bash" /root/.bashrc; then
   echo "export ROS_IP=\$(hostname -I | awk '{print \$1}')" >> /root/.bashrc
   echo "export ROS_HOSTNAME=\$ROS_IP" >> /root/.bashrc
   echo "export ROS_MASTER_URI=http://\$ROS_IP:11311" >> /root/.bashrc
+  echo "export GZ_SIM_RESOURCE_PATH=/opt/ros/jazzy/share" >> /root/.bashrc
 fi
 
 

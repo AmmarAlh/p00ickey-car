@@ -1,6 +1,6 @@
 # 🧠 Pickey-Car
 
-This is a weekend project I’m doing for fun and to stay up-to-date with ROS 2. The Pickey-Car is basically a Roomba with a 9-degree-of-freedom robot hand strapped to the top. I’m building everything for both **simulation** and **real hardware** environments.
+This is a weekend project I’m doing for fun and to stay up-to-date with ROS 2. The Pickey-Car is basically a car with a 9-degree-of-freedom robot hand strapped to the top. I’m building everything for both **simulation** and **real hardware** environments.
 
 ---
 
@@ -114,8 +114,13 @@ ros2 launch pickeycar_bringup real.launch.py
 
 ## 📌 Next Steps
 
+
+* [ ] Find a good LiDAR
+* [ ] Select a RealSense Camera might be D345
+* [ ] Acerkman steering chassis 
 * [ ] Finalize the URDF for the Roomba + hand
 * [ ] Integrate simulated lidar and IMU in Gazebo
 * [ ] Hook up serial comms to the real Roomba
 * [ ] Translate `cmd_vel` into Roomba-compatible commands
 * [ ] Add Nav2 setup + mapping capabilities
+

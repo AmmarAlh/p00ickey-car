@@ -3,11 +3,15 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "containerEnv": {
-    "DISPLAY": "${env:DISPLAY}",
-    "NVIDIA_DRIVER_CAPABILITIES": "all",
-    "NVIDIA_VISIBLE_DEVICES": "all"
-  },
+  "runArgs": [ 
+    "--env", "DISPLAY=:0",
+    "--network", "host",
+    "--gpus", "all",
+    "-e", "XDG_RUNTIME_DIR=/tmp/runtime-root",
+    "-v", "/tmp/.X11-unix:/tmp/.X11-unix",
+    "-e", "NVIDIA_DRIVER_CAPABILITIES=all",
+    "-e", "NVIDIA_VISIBLE_DEVICES=all"
+  ],
   "workspaceFolder": "/root/p00ickey-car",
   "workspaceMount": "source=${localWorkspaceFolder},target=/root/p00ickey-car,type=bind,consistency=cached",
   "customizations": {
@@ -31,5 +35,7 @@
         ]
 
     }
-  }
+  },
+  "postStartCommand": ".devcontainer/ros_entrypoint.sh"
+
 }
