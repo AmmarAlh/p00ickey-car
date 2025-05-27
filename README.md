@@ -116,7 +116,7 @@ ros2 launch pickeycar_bringup real.launch.py
 
 * [ ] Find a good LiDAR
 * [ ] Select a RealSense Camera might be D345
-* [ ] Acerkman steering chassis 
+* [ ] Ackermann steering chassis 
 * [ ] Finalize the URDF for the Roomba + hand
 * [ ] Integrate simulated lidar and IMU in Gazebo
 * [ ] Hook up serial comms to the real Roomba
