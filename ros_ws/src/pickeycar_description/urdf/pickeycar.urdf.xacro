@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="yahboomcar_X3plus">
+
+  <xacro:arg name="ns" default=""/>
+  <xacro:property name="mesh_prefix" value="package://dofbot/meshes/X3plus/"/>
+  <xacro:property name="sensor_prefix" value="package://dofbot/meshes/sensor/"/>
+
+  <xacro:macro name="visual_and_collision" params="link_name mesh_path color">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_path}visual/${link_name}.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="${color}"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_path}collision/${link_name}.STL"/>
+      </geometry>
+    </collision>
+  </xacro:macro>
+
+  <xacro:macro name="revolute_joint" params="name parent child xyz rpy axis lower upper effort velocity">
+    <joint name="${name}" type="revolute">
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+      <axis xyz="${axis}"/>
+      <limit lower="${lower}" upper="${upper}" effort="${effort}" velocity="${velocity}"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="fixed_joint" params="name parent child xyz rpy">
+    <joint name="${name}" type="fixed">
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- Base and sensor links -->
+  <link name="base_footprint"/>
+  <link name="imu_link"/>
+  <link name="camera_link">
+    <xacro:visual_and_collision link_name="camera_link" mesh_path="${sensor_prefix}" color="0.7 0.7 0.7 1"/>
+  </link>
+  <link name="laser_link">
+    <xacro:visual_and_collision link_name="laser_link" mesh_path="${sensor_prefix}" color="0.7 0.7 0.7 1"/>
+  </link>
+  <link name="mono_link">
+    <xacro:visual_and_collision link_name="mono_link" mesh_path="${sensor_prefix}" color="0.7 0.7 0.7 1"/>
+  </link>
+
+  <!-- Base link -->
+  <link name="base_link">
+    <xacro:visual_and_collision link_name="base_link" mesh_path="${mesh_prefix}" color="0 0.7 0 1"/>
+  </link>
+
+  <!-- Base joints -->
+  <xacro:fixed_joint name="base_joint" parent="base_footprint" child="base_link" xyz="0 0 0.076" rpy="0 0 0"/>
+  <xacro:fixed_joint name="base_imu" parent="base_link" child="imu_link" xyz="0.001 0.017 0.0322" rpy="0 3.1415 1.5707"/>
+  <xacro:fixed_joint name="astra_joint" parent="base_link" child="camera_link" xyz="-0.043645 0 0.41955" rpy="0 0 0"/>
+  <xacro:fixed_joint name="laser_joint" parent="base_link" child="laser_link" xyz="0.10478 0 0.0471" rpy="0 0 0"/>
+  <xacro:fixed_joint name="mono_joint" parent="arm_link4" child="mono_link" xyz="-0.0481 -0.05145 -0.0022" rpy="1.5708 0 0"/>
+
+  <!-- Arm links and joints -->
+  <xacro:macro name="arm_link" params="index color">
+    <link name="arm_link${index}">
+      <xacro:visual_and_collision link_name="arm_link${index}" mesh_path="${mesh_prefix}" color="${color}"/>
+    </link>
+  </xacro:macro>
+
+  <xacro:arm_link index="1" color="0.7 0.7 0.7 1"/>
+  <xacro:revolute_joint name="arm_joint1" parent="base_link" child="arm_link1" xyz="0.09825 0 0.102" rpy="0 0 0" axis="0 0 -1" lower="-1.5708" upper="1.5708" effort="100" velocity="1"/>
+
+  <xacro:arm_link index="2" color="0 0.7 0 1"/>
+  <xacro:revolute_joint name="arm_joint2" parent="arm_link1" child="arm_link2" xyz="0 0 0.0405" rpy="-1.5708 0 0" axis="0 0 -1" lower="-1.5708" upper="1.5708" effort="100" velocity="1"/>
+
+  <xacro:arm_link index="3" color="0.7 0.7 0.7 1"/>
+  <xacro:revolute_joint name="arm_joint3" parent="arm_link2" child="arm_link3" xyz="0 -0.0829 0" rpy="0 0 0" axis="0 0 -1" lower="-1.5708" upper="1.5708" effort="100" velocity="1"/>
+
+  <xacro:arm_link index="4" color="0 0.7 0 1"/>
+  <xacro:revolute_joint name="arm_joint4" parent="arm_link3" child="arm_link4" xyz="0 -0.0829 0" rpy="0 0 0" axis="0 0 -1" lower="-1.5708" upper="1.5708" effort="100" velocity="1"/>
+
+  <xacro:arm_link index="5" color="0.7 0.7 0.7 1"/>
+  <xacro:revolute_joint name="arm_joint5" parent="arm_link4" child="arm_link5" xyz="-0.00215 -0.17455 0" rpy="1.5708 0 0" axis="0 0 1" lower="-1.5708" upper="3.14159" effort="100" velocity="1"/>
+
+</robot>
