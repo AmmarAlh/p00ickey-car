@@ -7,10 +7,15 @@
     "--env", "DISPLAY=:0",
     "--network", "host",
     "--gpus", "all",
-    "-e", "XDG_RUNTIME_DIR=/tmp/runtime-root",
-    "-v", "/tmp/.X11-unix:/tmp/.X11-unix",
+    "-e", "WAYLAND_DISPLAY=$WAYLAND_DISPLAY",
+    "-e", "XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR",
+    "-e", "MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA",
+    "-e", "LD_LIBRARY_PATH=/usr/lib/wsl/lib",
     "-e", "NVIDIA_DRIVER_CAPABILITIES=all",
-    "-e", "NVIDIA_VISIBLE_DEVICES=all"
+    "-e", "NVIDIA_VISIBLE_DEVICES=all",
+    "-v", "/tmp/.X11-unix:/tmp/.X11-unix",
+    "-v", "/mnt/wslg:/mnt/wslg",
+    "-v", "/usr/lib/wsl:/usr/lib/wsl:ro"
   ],
   "workspaceFolder": "/root/p00ickey-car",
   "workspaceMount": "source=${localWorkspaceFolder},target=/root/p00ickey-car,type=bind,consistency=cached",
@@ -31,7 +36,8 @@
           "oderwat.indent-rainbow",
           "ms-azuretools.vscode-docker",
           "GitHub.copilot",
-          "GitHub.copilot-chat"
+          "GitHub.copilot-chat",
+          "ms-iot.vscode-ros"	
         ]
 
     }

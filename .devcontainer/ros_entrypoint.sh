@@ -14,6 +14,9 @@ if ! grep -q "source /opt/ros/jazzy/setup.bash" /root/.bashrc; then
   echo "export GZ_SIM_RESOURCE_PATH=/opt/ros/jazzy/share" >> /root/.bashrc
 fi
 
+if [[ $- == *i* ]]; then
+  alias clros='rm -rf /root/p00ickey-car/ros_ws/build /root/p00ickey-car/ros_ws/install /root/p00ickey-car/ros_ws/logs'
+fi
 
 # Hand over control to the CMD instruction
 exec "$@"
