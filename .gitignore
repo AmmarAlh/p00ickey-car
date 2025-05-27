@@ -1,0 +1,31 @@
+# ROS2 build and install folders
+build/
+install/
+log/
+
+# Colcon build artifacts
+*.log
+*.pyc
+*.pyo
+*.egg-info/
+.colcon/
+.colcon_install_layout
+
+# Python cache
+__pycache__/
+
+# VSCode settings
+.vscode/
+
+# ROS2 launch/test results
+test_results/
+
+# Misc
+*.swp
+*.swo
+.DS_Store
+.idea/
+.env
+
+# custom files
+output.*
