@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     gnupg2 \
     lsb-release \
+    mesa-utils \
     software-properties-common \
     && add-apt-repository universe \
     && curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
@@ -31,6 +32,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     ros-dev-tools \
     ros-${ROS_DISTRO}-desktop \
     ros-${ROS_DISTRO}-ros-gz \
+    ros-${ROS_DISTRO}-joint-state-publisher-gui \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy and set entrypoint script

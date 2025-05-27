@@ -51,7 +51,7 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
-      Description File: /home/ammaral/projects/p00ickey-car/ros_ws/src/pickeycar_description/urdf/pickeycar.urdf
+      Description File: /root/p00ickey-car/ros_ws/src/pickeycar_description/urdf/pickeycar.urdf
       Description Source: File
       Description Topic:
         Depth: 5
@@ -259,5 +259,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: -4
-  Y: -4
+  X: 423
+  Y: 178
