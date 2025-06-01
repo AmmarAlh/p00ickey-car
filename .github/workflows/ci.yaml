@@ -1,0 +1,59 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/ammaralh/pickeycar-ci:latest
+      options: --user 1000:1000
+    steps:
+      - uses: actions/checkout@v3.0.2
+
+      # - name: Run Pre-commit
+      #   run: pre-commit run --all-files
+
+      # - name: Lint
+      #   shell: bash
+      #   run: source /opt/ros/jazzy/setup.bash && colcon lint
+
+      - name: Build
+        shell: bash
+        run: source /opt/ros/jazzy/setup.bash && colcon build --merge-install --cmake-args -DCMAKE_BUILD_TYPE=Coverage
+
+      # - name: Unit Test
+      #   shell: bash
+      #   run: |
+      #    source /opt/ros/jazzy/setup.bash
+      #    colcon test --merge-install --event-handlers console_cohesion+
+      #    colcon test-result --verbose
+
+      # - name: Generate C++ Coverage Report
+      #   shell: bash
+      #   run: |
+      #     apt-get update && apt-get install -y gcovr
+      #     gcovr -r . --exclude-directories build/ --html -o coverage.html
+
+      # - name: Run Python Lint + Coverage
+      #   shell: bash
+      #   run: |
+      #     flake8 src/
+      #     black --check src/
+      #     cd src/my_python_package
+      #     coverage run -m pytest
+      #     coverage report
+
+      # - name: Integration Test
+      #   shell: bash
+      #   run: source /opt/ros/jazzy/setup.bash && ./scripts/integration_test.sh
+
+      # - name: Upload Logs
+      #   if: failure()
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: colcon-logs
+      #     path: log
