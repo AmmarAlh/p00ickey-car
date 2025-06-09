@@ -5,9 +5,7 @@ This is a weekend project I’m doing for fun and to stay up-to-date with ROS 2.
 ---
 
 ## 📁 Workspace Structure
-
 ```
-
 ros\_ws/
 └── src/
 ├── pickeycar\_bringup/         # Central launch and config to start the full system (sim or real)
@@ -38,7 +36,7 @@ ros\_ws/
 └── pickeycar\_apps/            # High-level behaviors: cleaning, mapping, patrol, etc.
 ├── scripts/               # App logic/scripts
 └── config/                # App-specific parameters
-
+```
 
 ---
 
@@ -77,7 +75,7 @@ Everything is designed to support both simulation and real-world testing. Each m
 cd ros_ws
 colcon build
 source install/setup.bash
-````
+```
 
 ### Run in simulation
 
