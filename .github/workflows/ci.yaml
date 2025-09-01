@@ -18,7 +18,6 @@ jobs:
 
       # Skip auth/pull for forked PRs to avoid failures with private images
       - name: Login to GHCR
-        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -26,7 +25,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull CI image
-        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
         run: docker pull ghcr.io/ammaralh/pickeycar-ci:latest
 
       - name: Build in container
