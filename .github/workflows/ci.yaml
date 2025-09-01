@@ -37,10 +37,8 @@ jobs:
       - name: Pull CI image
         run: docker pull ghcr.io/ammaralh/pickeycar-ci:latest
 
-      - name: Build in container
+      - uses: actions/checkout@v4
+      - name: Build
         run: |
-          docker run --rm \
-            -v "${{ github.workspace }}:/ws" \
-            -w /ws \
-            ghcr.io/ammaralh/pickeycar-ci:latest \
-            bash -lc "source /opt/ros/jazzy/setup.bash && colcon build --merge-install --cmake-args -DCMAKE_BUILD_TYPE=Coverage"
+          source /opt/ros/jazzy/setup.bash
+          colcon build --merge-install --cmake-args -DCMAKE_BUILD_TYPE=Coverage
