@@ -12,6 +12,13 @@ jobs:
       image: ghcr.io/ammaralh/pickeycar-ci:latest
       options: --user 1000:1000
     steps:
+      - name: Login to GITHUB Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v3.0.2
 
       # - name: Run Pre-commit
