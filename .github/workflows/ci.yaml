@@ -8,7 +8,7 @@ on:
 
 permissions:
   contents: read
-  packages: read
+  packages: write
 
 jobs:
   ci:
@@ -22,7 +22,17 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PICKEYCAR }}
+      - name: Show actor
+        run: echo "Actor is ${{ github.actor }}"
+      - name: Check if GHCR_PAT is set
+        run: |
+          if [ -z "${{ secrets.PICKEYCAR }}" ]; then
+            echo "PICKEYCAR is not set!"
+            exit 1
+          else
+            echo "PICKEYCAR is set."
+          fi
 
       - name: Pull CI image
         run: docker pull ghcr.io/ammaralh/pickeycar-ci:latest
