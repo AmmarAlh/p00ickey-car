@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.substitutions import LaunchConfiguration
 
 from launch_ros.actions import Node
@@ -8,8 +8,8 @@ from launch_ros.substitutions import FindPackageShare
 import os
 import xacro
 
-def generate_launch_description():
-    use_xacro = LaunchConfiguration('use_xacro')
+def _launch_setup(context, *args, **kwargs):
+    use_xacro = LaunchConfiguration('use_xacro').perform(context)
 
     # Paths
     pkg_path = FindPackageShare('pickeycar_description').find('pickeycar_description')
@@ -18,8 +18,7 @@ def generate_launch_description():
     print(f"URDF file: {urdf_file}")
     print(f"XACRO file: {xacro_file}")
     # Choose source based on argument
-    robot_description_content = None
-    if os.environ.get('USE_XACRO', 'false').lower() == 'true':
+    if use_xacro.lower() == 'true':
         robot_description_content = xacro.process_file(xacro_file).toxml()
     else:
         with open(urdf_file, 'r') as f:
@@ -28,12 +27,7 @@ def generate_launch_description():
     # Add a file to be loaded by RViz2
     rviz_config_file = os.path.join(pkg_path, 'rviz', 'pickeycar.rviz')
 
-    return LaunchDescription([
-        DeclareLaunchArgument(
-            'use_xacro',
-            default_value='false',
-            description='Use xacro instead of URDF'
-        ),
+    return [
         Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
@@ -53,4 +47,15 @@ def generate_launch_description():
             arguments=['-d', rviz_config_file],
             output='screen'
         ),
+    ]
+
+
+def generate_launch_description():
+    return LaunchDescription([
+        DeclareLaunchArgument(
+            'use_xacro',
+            default_value='false',
+            description='Use xacro instead of URDF'
+        ),
+        OpaqueFunction(function=_launch_setup)
     ])
